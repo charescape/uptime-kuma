@@ -1,25 +1,15 @@
-node_modules
-.DS_Store
-dist
-dist-ssr
-*.local
-.idea
+/.DS_Store
 
-/data
-!/data/.gitkeep
-.vscode
+/.idea/
+/.vscode/
 
-/private
-/out
-/tmp
-.env
+/node_modules/
+/dist/
+/dist-ssr/
+/data/
+/private/
+/out/
+/tmp/
 
-cypress/videos
-cypress/screenshots
-
-/extra/healthcheck.exe
-/extra/healthcheck
-/extra/healthcheck-armv7
-
-extra/exe-builder/bin
-extra/exe-builder/obj
+/*.local
+/.env
