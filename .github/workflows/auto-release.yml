@@ -30,17 +30,12 @@ jobs:
       - run: git config user.name  "charescape"
 
       - run: git branch
-
       - run: git checkout release
-
       - run: git merge master
-
       - run: git status
 
       - run: npm install
-
       - run: npm run build
-
       - run: npm test
         if: ${{ !contains(github.event.head_commit.message, 'release v') }}
 
@@ -54,6 +49,8 @@ jobs:
         continue-on-error: true
 
       - run: rm dist.7z
+
+      - run: git status
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ contains(github.event.head_commit.message, 'release v') }}
