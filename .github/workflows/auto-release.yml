@@ -1,0 +1,68 @@
+name: auto-release
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  npm-run-build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+#      - uses: actions/setup-node@v3
+#        with:
+#          node-version: 18
+
+      - run: |
+          sudo apt -y update
+          sudo apt -y install p7zip
+
+      - run: git --version
+      - run: node -v
+      - run: npm --version
+      - run: php -v
+
+      - run: git config user.email "charescape@outlook.com"
+      - run: git config user.name  "charescape"
+
+      - run: git branch
+
+      - run: git checkout release
+
+      - run: git merge master
+
+      - run: git status
+
+      - run: npm install
+
+      - run: npm run build
+
+      - run: npm test
+        if: ${{ !contains(github.event.head_commit.message, 'release v') }}
+
+      - run: 7za a -t7z -r dist.7z dist/*
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: debug-pack
+          path: "*.7z"
+          retention-days: 1
+        continue-on-error: true
+
+      - run: rm dist.7z
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        if: ${{ contains(github.event.head_commit.message, 'release v') }}
+        with:
+          branch: "release"
+          commit_message: "git merge master && npm run build"
+
+      # - run: echo "150.158.5.254 admin-102591.zidiankeji.cn" | sudo tee -a /etc/hosts
+      #   if: "contains(github.event.head_commit.message, 'release v')"
+
+      # - run: curl --verbose https://dpms.itorchsoft.com/cicd.php
+      #   if: ${{ contains(github.event.head_commit.message, 'release v') }}
