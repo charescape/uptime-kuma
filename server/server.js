@@ -148,7 +148,17 @@ const apicache = require("./modules/apicache");
 app.use(express.json());
 
 // Global Middleware
-app.use(function (req, res, next) {
+app.use(async function (req, res, next) {
+
+    args["data-dir"] = `./data${req.headers.host.replace('.', '_').replace(':', '__')}/`;
+
+    Database.init(args);
+    await initDatabase(testMode);
+    await server.initAfterDatabaseReady();
+    server.loadPlugins();
+    server.entryPage = await Settings.get("entryPage");
+    await StatusPage.loadDomainMappingList();
+
     if (!disableFrameSameOrigin) {
         res.setHeader("X-Frame-Options", "SAMEORIGIN");
     }
@@ -169,12 +179,7 @@ let jwtSecret = null;
 let needSetup = false;
 
 (async () => {
-    Database.init(args);
-    await initDatabase(testMode);
-    await server.initAfterDatabaseReady();
-    server.loadPlugins();
-    server.entryPage = await Settings.get("entryPage");
-    await StatusPage.loadDomainMappingList();
+
 
     log.info("server", "Adding route");
 
@@ -238,7 +243,7 @@ let needSetup = false;
     }));
 
     // ./data/upload
-    app.use("/upload", express.static(Database.uploadDir));
+    app.use("/upload", express.static("./data/upload"));
 
     app.get("/.well-known/change-password", async (_, response) => {
         response.redirect("https://github.com/louislam/uptime-kuma/wiki/Reset-Password-via-CLI");
@@ -1545,7 +1550,7 @@ let needSetup = false;
         } else {
             log.info("server", `Listening on ${port}`);
         }
-        startMonitors();
+        // startMonitors();
         checkVersion.startInterval();
 
         if (testMode) {
