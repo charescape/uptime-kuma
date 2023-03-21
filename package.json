@@ -83,7 +83,7 @@
         "cheerio": "~1.0.0-rc.12",
         "chroma-js": "~2.4.2",
         "command-exists": "~1.2.9",
-        "compare-versions": "~3.6.0",
+        "compare-versions": "~5.0.3",
         "compression": "~1.7.4",
         "dayjs": "~1.11.5",
         "dotenv": "~16.0.3",
