@@ -131,7 +131,7 @@
         "@babel/preset-env": "^7.15.8",
         "@fortawesome/fontawesome-svg-core": "~1.2.36",
         "@fortawesome/free-regular-svg-icons": "~5.15.4",
-        "@fortawesome/free-solid-svg-icons": "~5.15.4",
+        "@fortawesome/free-solid-svg-icons": "~6.4.0",
         "@fortawesome/vue-fontawesome": "~3.0.0-5",
         "@popperjs/core": "~2.10.2",
         "@types/bootstrap": "~5.1.9",
