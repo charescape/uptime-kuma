@@ -158,7 +158,7 @@
         "marked": "~4.2.5",
         "node-ssh": "~13.0.1",
         "postcss-html": "~1.5.0",
-        "postcss-rtlcss": "~3.7.2",
+        "postcss-rtlcss": "~4.0.4",
         "postcss-scss": "~4.0.4",
         "prismjs": "~1.29.0",
         "qrcode": "~1.5.0",
